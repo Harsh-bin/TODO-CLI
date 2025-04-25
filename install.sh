@@ -43,5 +43,5 @@ sleep 0.5
 
 echo -e "\n🎉 All set! Now you can:"
 sleep 0.2
-echo "  1. Restart your terminal OR"
+echo "  1. Restart your terminal and type todo"
 
