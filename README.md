@@ -70,3 +70,5 @@ Example ```Gym|Call Mom | Do Maths | Do Physics|Do Chemistry```
      todo
    ```
   3. Everything done NOW enjoy✌️
+### Uninstalling todo app
+    chmod +x ./uninstall.sh
