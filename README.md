@@ -19,7 +19,7 @@
 - **Remove Tasks**: Changed your mind? Delete tasks easily 🗑️.
 
 ## 💡Tips
-- Delete tasks you won't do → keeps stats accurate 🎯 else streak will reset removed tasks doesn't counts.
+- Delete tasks you won't do → keeps stats accurate 🎯 else streak will reset. removed tasks doesn't counts.
 
 ### Adding multiple tasks 📜
 use ```|``` between tasks to add multiple tasks at once spacing doesn't matter.
@@ -46,6 +46,7 @@ Example ```Gym|Call Mom | Do Maths | Do Physics|Do Chemistry```
    sudo pacman -S util-linux gum jq bc # Arch based system
    ```
 # How TO Use
+  simply download the todo.sh file from release and run
 
    ```
    ./todo.sh
@@ -57,6 +58,9 @@ Example ```Gym|Call Mom | Do Maths | Do Physics|Do Chemistry```
    ```
    ```
     cd TODO-CLI
+   ```
+   ```
+    chmod +x ./install.sh
    ```
    ```
     ./install.sh
