@@ -13,7 +13,7 @@ sleep 0.5
 
 if [ -f "todo.sh" ]; then
   mv todo.sh ~/.todo/
-  chmod +x ~/.todo/todo.sh
+  chmod +x ~/.todo/todo_tui.sh
   sleep 0.5
   echo "  🚀 Installed todo.sh to ~/.todo/"
 else
@@ -22,7 +22,7 @@ else
 fi
 if [ -f "todocli.sh" ]; then
   mv todocli.sh ~/.todo/
-  chmod +x ~/.todo/todocli.sh
+  chmod +x ~/.todo/todo_cli.sh
   sleep 0.5
   echo "  🚀 Installed todocli.sh to ~/.todo/"
 else
