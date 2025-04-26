@@ -11,22 +11,22 @@ echo "  ✅ Created: ~/.todo/"
 
 sleep 0.5
 
-if [ -f "todo.sh" ]; then
-  mv todo.sh ~/.todo/
+if [ -f "todo_tui.sh" ]; then
+  mv todo_tui.sh ~/.todo/
   chmod +x ~/.todo/todo_tui.sh
   sleep 0.5
-  echo "  🚀 Installed todo.sh to ~/.todo/"
+  echo "  🚀 Installed todo_tui.sh to ~/.todo/"
 else
-  echo "❌ Error: Couldn't find todo.sh in current directory!" >&2
+  echo "❌ Error: Couldn't find todo_tui.sh in current directory!" >&2
   exit 1
 fi
-if [ -f "todocli.sh" ]; then
-  mv todocli.sh ~/.todo/
+if [ -f "todo_cli.sh" ]; then
+  mv todo_cli.sh ~/.todo/
   chmod +x ~/.todo/todo_cli.sh
   sleep 0.5
-  echo "  🚀 Installed todocli.sh to ~/.todo/"
+  echo "  🚀 Installed todo_cli.sh to ~/.todo/"
 else
-  echo "❌ Error: Couldn't find todocli.sh in current directory!" >&2
+  echo "❌ Error: Couldn't find todo_cli.sh in current directory!" >&2
   exit 1
 fi
 
@@ -35,8 +35,8 @@ add_alias() {
   if [ -f "$file" ]; then
     if ! grep -q "alias todo=" "$file"; then
       echo -e "\n# Todo Manager Alias" >> "$file"
-      echo "alias todo='~/.todo/todo.sh'" >> "$file"
-      echo "alias todocli='~/.todo/todocli.sh'" >> "$file"
+      echo "alias todo='~/.todo/todo_tui.sh'" >> "$file"
+      echo "alias todocli='~/.todo/todo_cli.sh'" >> "$file"
       echo "  ✨ Added alias to $file"
     else
       echo "  ⏩ Alias already exists in $file"
