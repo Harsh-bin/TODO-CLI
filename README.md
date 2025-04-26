@@ -1,7 +1,7 @@
 
 # 🌟 TODO CLI and TUI BOTH 🌟  
 ### TUI PREVIEW
-![](/todo_cli.png)
+![](/preview/todo_tui.png)
 
 ### CLI PREVIEW
 
