@@ -13,18 +13,18 @@ command -v jq >/dev/null 2>&1 || { echo "Install 'jq' first: https://stedolan.gi
 command -v cal >/dev/null 2>&1 || { echo "Install 'cal' (bsdmainutils)"; exit 1; }
 
 # Configuration
-CALENDAR_DIR="$HOME/.calendar_app"
-mkdir -p "$CALENDAR_DIR"
-DAY_TASK_FILE="$CALENDAR_DIR/day_tasks.json"
-WEEK_TASK_FILE="$CALENDAR_DIR/week_tasks.json"
-MONTH_TASK_FILE="$CALENDAR_DIR/month_tasks.json"
-TOTAL_TASK_FILE="$CALENDAR_DIR/total_tasks.txt"
-STARS_EARNED_FILE="$CALENDAR_DIR/stars_earned.txt"
-TASK_HISTORY_FILE="$CALENDAR_DIR/task_history.txt"
-STARS_FILE="$CALENDAR_DIR/stars.json"
-NOTES_FILE="$CALENDAR_DIR/notes.json"
-TARGET_DATE_FILE="$CALENDAR_DIR/target_dates.json"
-STREAK_FILE="$CALENDAR_DIR/streak.json"
+TODO_TUI_APP_DIR="$HOME/.todo_config"
+mkdir -p "$TODO_TUI_APP_DIR"
+DAY_TASK_FILE="$TODO_TUI_APP_DIR/day_tasks.json"
+WEEK_TASK_FILE="$TODO_TUI_APP_DIR/week_tasks.json"
+MONTH_TASK_FILE="$TODO_TUI_APP_DIR/month_tasks.json"
+TOTAL_TASK_FILE="$TODO_TUI_APP_DIR/total_tasks.txt"
+STARS_EARNED_FILE="$TODO_TUI_APP_DIR/stars_earned.txt"
+TASK_HISTORY_FILE="$TODO_TUI_APP_DIR/task_history.txt"
+STARS_FILE="$TODO_TUI_APP_DIR/stars.json"
+NOTES_FILE="$TODO_TUI_APP_DIR/notes.json"
+TARGET_DATE_FILE="$TODO_TUI_APP_DIR/target_dates.json"
+STREAK_FILE="$TODO_TUI_APP_DIR/streak.json"
 BORDER_STYLE="rounded"
 COLOR_ACCENT="212"
 COLOR_SECONDARY="99"
@@ -79,36 +79,36 @@ check_and_reset_tasks() {
   local current_month=$(date +%m)
   
   # Daily reset
-  if [ -f "$CALENDAR_DIR/last_day_reset" ]; then
-    local last_day_reset=$(cat "$CALENDAR_DIR/last_day_reset")
+  if [ -f "$TODO_TUI_APP_DIR/last_day_reset" ]; then
+    local last_day_reset=$(cat "$TODO_TUI_APP_DIR/last_day_reset")
     if [ "$last_day_reset" != "$current_date" ]; then
       echo "[]" > "$DAY_TASK_FILE"
-      echo "$current_date" > "$CALENDAR_DIR/last_day_reset"
+      echo "$current_date" > "$TODO_TUI_APP_DIR/last_day_reset"
     fi
   else
-    echo "$current_date" > "$CALENDAR_DIR/last_day_reset"
+    echo "$current_date" > "$TODO_TUI_APP_DIR/last_day_reset"
   fi
 
   # Weekly reset
-  if [ -f "$CALENDAR_DIR/last_week_reset" ]; then
-    local last_week_reset=$(cat "$CALENDAR_DIR/last_week_reset")
+  if [ -f "$TODO_TUI_APP_DIR/last_week_reset" ]; then
+    local last_week_reset=$(cat "$TODO_TUI_APP_DIR/last_week_reset")
     if [ "$last_week_reset" != "$current_week" ] && [ "$(date +%A)" = "Monday" ]; then
       echo "[]" > "$WEEK_TASK_FILE"
-      echo "$current_week" > "$CALENDAR_DIR/last_week_reset"
+      echo "$current_week" > "$TODO_TUI_APP_DIR/last_week_reset"
     fi
   else
-    echo "$current_week" > "$CALENDAR_DIR/last_week_reset"
+    echo "$current_week" > "$TODO_TUI_APP_DIR/last_week_reset"
   fi
 
   # Monthly reset
-  if [ -f "$CALENDAR_DIR/last_month_reset" ]; then
-    local last_month_reset=$(cat "$CALENDAR_DIR/last_month_reset")
+  if [ -f "$TODO_TUI_APP_DIR/last_month_reset" ]; then
+    local last_month_reset=$(cat "$TODO_TUI_APP_DIR/last_month_reset")
     if [ "$last_month_reset" != "$current_month" ] && [ "$(date +%d)" = "01" ]; then
       echo "[]" > "$MONTH_TASK_FILE"
-      echo "$current_month" > "$CALENDAR_DIR/last_month_reset"
+      echo "$current_month" > "$TODO_TUI_APP_DIR/last_month_reset"
     fi
   else
-    echo "$current_month" > "$CALENDAR_DIR/last_month_reset"
+    echo "$current_month" > "$TODO_TUI_APP_DIR/last_month_reset"
   fi
 }
 
@@ -517,4 +517,6 @@ main_interface() {
 }
 
 # Run the app
-main_interface
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main_interface
+fi
