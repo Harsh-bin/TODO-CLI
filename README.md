@@ -111,6 +111,7 @@ todocli [command] [options]
     ./install.sh
    ```
    2. Restart terminal and run
+   3. **📢 MAKE SURE TO RUN TODO TUI ONCE BEFORE RUNNING TODOCLI ELSE CLI WILL NOT WORK**
    ```
      todo # TUI MODE
    ```
