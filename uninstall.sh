@@ -45,8 +45,8 @@ echo -e "\n${YELLOW}⚠️ Note:${NC}"
 sleep 0.2
 echo -e "1. Close and reopen all terminal windows to complete cleanup"
 sleep 0.3
-echo -e "2. Your task data in ~/.calendar_app/ was ${RED}not removed${NC} (keep your history)"
+echo -e "2. Your task data in ~/.todo_config/ was ${RED}not removed${NC} (keep your history)"
 sleep 0.3
-echo -e "   Run ${YELLOW}rm -rf ~/.calendar_app${NC} if you want to delete all task data"
+echo -e "   Run ${YELLOW}rm -rf ~/.todo_config${NC} if you want to delete all task data"
 sleep 0.3
 echo -e "\n${GREEN}🎉 Uninstall complete! Thanks for trying Todo Manager.${NC}"
