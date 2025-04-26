@@ -20,7 +20,15 @@ else
   echo "❌ Error: Couldn't find todo.sh in current directory!" >&2
   exit 1
 fi
-
+if [ -f "todocli.sh" ]; then
+  mv todocli.sh ~/.todo/
+  chmod +x ~/.todo/todocli.sh
+  sleep 0.5
+  echo "  🚀 Installed todocli.sh to ~/.todo/"
+else
+  echo "❌ Error: Couldn't find todocli.sh in current directory!" >&2
+  exit 1
+fi
 
 add_alias() {
   local file=$1
@@ -28,6 +36,7 @@ add_alias() {
     if ! grep -q "alias todo=" "$file"; then
       echo -e "\n# Todo Manager Alias" >> "$file"
       echo "alias todo='~/.todo/todo.sh'" >> "$file"
+      echo "alias todocli='~/.todo/todocli.sh'" >> "$file"
       echo "  ✨ Added alias to $file"
     else
       echo "  ⏩ Alias already exists in $file"
@@ -43,5 +52,5 @@ sleep 0.5
 
 echo -e "\n🎉 All set! Now you can:"
 sleep 0.2
-echo "  1. Restart your terminal and type todo"
+echo " Restart your terminal and type todo for 'TUI' and todocli for 'CLI' "
 
