@@ -47,7 +47,7 @@ todocli --help
 ```
 ## Usage:
 ```
-  todocli [command] [options]
+todocli [command] [options]
 ```
 ## 📌 Basic Commands:
  - todocli --help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show this help message
@@ -99,7 +99,7 @@ todocli --help
 ### 🛠️ Full-Setup
    1. Clone this repository
    ```
-    git clone https://github.com/Harsh-bin/TODO-CLI.git
+    git clone https://github.com/Harsh-bin/TODO-CLI-and-TUI.git  
    ```
    ```
     cd TODO-CLI-and-TUI
