@@ -1,10 +1,18 @@
 
-# 🌟 TODO-CLI 🌟  
+# 🌟 TODO CLI and TUI BOTH 🌟  
+### TUI PREVIEW
 ![](/todo_cli.png)
+
+### CLI PREVIEW
+
+https://github.com/user-attachments/assets/bd8a1f4e-aa81-4995-9631-d1ad5ffe8e40
+
+
 
 ---
 
 ## 🚀 Features    
+- **Both TUI and CLI Feature**: use whatever version you like
 - **Task Lists**: Track daily 🌞, weekly 📅, and monthly 🌙 tasks.  
 - **Progress Bars**: Watch bars fill up as you complete tasks!   
 - **Earn Stars**: Complete tasks → collect ⭐ (1 per task)!
@@ -20,7 +28,7 @@
 
 ## 💡Tips
 - Delete tasks you won't do → keeps stats accurate 🎯 else streak will reset. removed tasks doesn't counts.
-
+##  🔵 TUI USAGES
 ### Adding multiple tasks 📜
 use ```|``` between tasks to add multiple tasks at once spacing doesn't matter.
 
@@ -31,6 +39,48 @@ Example ```Gym|Call Mom | Do Maths | Do Physics|Do Chemistry```
        3.Do Math
        4.DO Physics
        5.Do Chemistry
+---
+##  🔴 CLI USAGES
+# Run 
+```
+todocli --help
+```
+## Usage:
+```
+  todocli [command] [options]
+```
+## 📌 Basic Commands:
+ - todocli --help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show this help message
+
+## 📝 Task Operations:
+ - todocli add task --period [day/week/month] --tasks "Task1|Task2"
+ - todocli remove task --period [day/week/month] --task "Task Name"
+ - todocli complete task --period [day/week/month] --task "Task Name"
+
+## 📚 Note Operations:
+ - todocli add note --type [text/link] --content "Content"
+ - todocli edit note 
+ - todocli delete note 
+
+## 🎯 Target Dates:
+ - todocli set-target "Label" "YYYY-MM-DD"
+ - todocli remove target date    
+
+## 🔍 Show Commands:
+ - todocli show day task          
+ - todocli show week task         
+ - todocli show month task        
+ - todocli show all tasks         
+ - todocli show notes           
+ - todocli show streak            
+ - todocli show target dates    
+
+## 🔍 Examples:
+ - todocli add task --period day --tasks "Gym|Math homework"
+ - todocli complete task --period day --task "Gym"
+ - todocli show week task
+ - todocli set-target "Exam" "2023-12-15"
+ 
 ---
 
 ### 🛠️ **Setup**  
@@ -45,19 +95,14 @@ Example ```Gym|Call Mom | Do Maths | Do Physics|Do Chemistry```
    ```
    sudo pacman -S util-linux gum jq bc # Arch based system
    ```
-# How TO Use
-  simply download the todo.sh file from release and run
 
-   ```
-   ./todo.sh
-   ```
-### Full-Setup
+### 🛠️ Full-Setup
    1. Clone this repository
    ```
     git clone https://github.com/Harsh-bin/TODO-CLI.git
    ```
    ```
-    cd TODO-CLI
+    cd TODO-CLI-and-TUI
    ```
    ```
     chmod +x ./install.sh
@@ -67,7 +112,10 @@ Example ```Gym|Call Mom | Do Maths | Do Physics|Do Chemistry```
    ```
    2. Restart terminal and run
    ```
-     todo
+     todo # TUI MODE
+   ```
+   ```
+     todocli [command] [options] # CLI MODE
    ```
   3. Everything done NOW enjoy✌️
 ### Uninstalling todo app
