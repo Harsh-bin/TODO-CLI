@@ -17,17 +17,19 @@ else
     echo -e "ℹ️ ~/.todo directory not found"
 fi
 sleep 0.5
+
 remove_alias() {
     local file=$1
     if [ -f "$file" ]; then
-        if grep -q "alias todo=" "$file"; then
-            sed -i '/^# Todo Manager Alias$/,/^alias todo=.*$/d' "$file"
-            echo -e "${GREEN}✅ Removed alias from: $file${NC}"
+        if grep -q "alias todo=" "$file" || grep -q "alias todocli=" "$file"; then
+            sed -i '/^# Todo Manager Alias$/,/^alias todocli=.*$/d' "$file"
+            echo -e "${GREEN}✅ Removed todo aliases from: $file${NC}"
         else
-            echo -e "ℹ️ No todo alias found in: $file"
+            echo -e "ℹ️ No todo aliases found in: $file"
         fi
     fi
 }
+
 sleep 0.5
 echo -e "\n🔧 Cleaning up shell configurations..."
 remove_alias ~/.bashrc
