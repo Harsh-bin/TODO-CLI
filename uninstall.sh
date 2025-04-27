@@ -22,7 +22,11 @@ remove_alias() {
     local file=$1
     if [ -f "$file" ]; then
         if grep -q "alias todo=" "$file" || grep -q "alias todocli=" "$file"; then
-            sed -i '/^# Todo Manager Alias$/,/^alias todocli=.*$/d' "$file"
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                sed -i '' '/^# Todo Manager Alias$/,/^alias todocli=.*$/d' "$file"
+            else
+                sed -i '/^# Todo Manager Alias$/,/^alias todocli=.*$/d' "$file"
+            fi
             echo -e "${GREEN}✅ Removed todo aliases from: $file${NC}"
         else
             echo -e "ℹ️ No todo aliases found in: $file"
@@ -32,7 +36,13 @@ remove_alias() {
 
 sleep 0.5
 echo -e "\n🔧 Cleaning up shell configurations..."
-remove_alias ~/.bashrc
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    remove_alias ~/.bash_profile
+    remove_alias ~/.bashrc  
+else
+    remove_alias ~/.bashrc  
+fi
 remove_alias ~/.zshrc
 
 sleep 0.5
