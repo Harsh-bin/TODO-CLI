@@ -90,11 +90,15 @@ todocli [command] [options]
    ``` 
    # For Linux:
    ```
-   sudo apt-get install gum jq bc bsdmainutils # ubuntu/debian
+   sudo apt-get install gum jq bc util-linux bsdutils # ubuntu/debian
    ```
    ```
    sudo pacman -S util-linux gum jq bc # Arch based system
    ```
+   **📢 For any other distro install these "gum jq bc util-linux or bsdutils if needed" this should work with no errors.**
+
+# Install packages
+sudo dnf install util-linux jq bc gum
 
 ### 🛠️ Full-Setup
    1. Clone this repository
