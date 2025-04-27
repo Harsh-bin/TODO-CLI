@@ -45,8 +45,13 @@ add_alias() {
 }
 
 echo "🔧 Setting up shortcuts..."
-add_alias ~/.bashrc
-add_alias ~/.zshrc
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  add_alias ~/.bash_profile  
+  add_alias ~/.bashrc       
+else
+  add_alias ~/.bashrc        
+fi
+add_alias ~/.zshrc   
 
 sleep 0.5
 
