@@ -98,7 +98,7 @@ todocli [command] [options]
    **📢 For any other distro install these "gum jq bc util-linux or bsdutils if needed" this should work with no errors.**
 ---
 
-### 🛠️ Full-Setup
+### 🛠️ Installation 
    1. Clone this repository
    ```
     git clone https://github.com/Harsh-bin/TODO-CLI-and-TUI.git  
