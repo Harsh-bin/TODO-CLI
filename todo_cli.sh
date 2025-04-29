@@ -20,7 +20,7 @@ done
 [ -f "$STARS_EARNED_FILE" ] || echo "0" > "$STARS_EARNED_FILE"
 [ -f "$STREAK_FILE" ] || echo '{"current_streak": 0, "stars_this_week": 0, "last_updated_date": "", "total_tasks": 0, "completed_tasks": 0}' > "$STREAK_FILE"
 [ -f "$TASK_HISTORY_FILE" ] || touch "$TASK_HISTORY_FILE"
-
+# help menus
 show_help() {
   echo "Usage:"
   echo "  todocli [command] [options]"
@@ -67,7 +67,7 @@ handle_error() {
   show_help >&2
   clean_exit 1
 }
-# JSON 
+# JSON files 
 _check_json() {
   local file="$1"
   if ! jq empty "$file" >/dev/null 2>&1; then
@@ -78,7 +78,7 @@ _check_json() {
     esac
   fi
 }
-# Note functions
+# Notes functions
 show_notes() {
   echo "📝 Notes:"
   jq -r 'to_entries[] | "  \(.key+1). \(if .value.type == "link" then "🔗" else "📄" end) \(.value.content)"' "$NOTES_FILE"
@@ -130,7 +130,7 @@ edit_note() {
     gum style --foreground "$COLOR_ACCENT" "Note updated."
   }
 }
-# Target date functions
+# Target dates functions
 set_target() {
   local label="$1"
   local date="$2"
@@ -184,7 +184,7 @@ delete_target() {
   jq "del(.[$index])" "$TARGET_DATE_FILE" > tmp && mv tmp "$TARGET_DATE_FILE"
   echo "🗑️ Target deleted"
 }
-# Task functions
+# Tasks functions
 _get_task_id() {
   local file="$1"
   local task_name="$2"
@@ -244,18 +244,15 @@ complete_task() {
   local period="$1"
   local task_name="$2"
   local file
-  
-  case $period in
+    case $period in
     day) file="$DAY_TASK_FILE";;
     week) file="$WEEK_TASK_FILE";;
     month) file="$MONTH_TASK_FILE";;
     *) handle_error "Invalid period";;
   esac
-
   task_ids=$(_get_task_id "$file" "$task_name")
   _validate_single "$task_ids" "$file"
-
-  jq --argjson idx "${task_ids}" '.[$idx].completed = true' "$file" > tmp && mv tmp "$file"
+ jq --argjson idx "${task_ids}" '.[$idx].completed = true' "$file" > tmp && mv tmp "$file"
   update_stars "$period"
   echo $(( $(cat "$STARS_EARNED_FILE") + 1 )) > "$STARS_EARNED_FILE"
   [ "$period" = "day" ] && {
@@ -264,7 +261,6 @@ complete_task() {
   }
   echo "✅ Completed '$task_name' ⭐"
 }
-
 show_tasks() {
   local period="$1"
   case $period in
@@ -279,19 +275,17 @@ show_tasks() {
       return
       ;;
   esac
-
-  echo "${emoji} ${period^} Tasks:"
+ echo "${emoji} ${period^} Tasks:"
   jq -r '.[] | select(.completed == false) | "  - \(.task)"' "$file" | nl -w2 -s '. '
   echo "➖ Total: $(jq 'length' "$file") | ✅ Completed: $(jq '[.[] | select(.completed)] | length' "$file")"
 }
-# Streak function
-show_streak() {
+# Streaks functions
   echo "🔥 Streak:"
   echo "  Days: $(jq -r '.current_streak' "$STREAK_FILE")"
   echo "  ⭐ This Week: $(jq -r '.stars_this_week' "$STREAK_FILE")/7"
   echo "  ✅ Tasks: $(jq -r '.completed_tasks' "$STREAK_FILE")/$(jq -r '.total_tasks' "$STREAK_FILE")"
 }
-# Parse
+# Parse arugments functions
 parse_arguments() {
   case $1 in
     --help|-h|help)
@@ -423,7 +417,6 @@ parse_arguments() {
     reset-notes)
       reset_notes
       ;;
-
     reset-targets)
       reset_targets
       ;;
