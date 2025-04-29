@@ -30,7 +30,7 @@ COLOR_ACCENT="212"
 COLOR_SECONDARY="99"
 PADDING="1 2"
 
-# Initialize files
+# Initializes files
 for file in "$DAY_TASK_FILE" "$WEEK_TASK_FILE" "$MONTH_TASK_FILE"; do
   [ -f "$file" ] || echo "[]" > "$file"
 done
@@ -48,7 +48,7 @@ validate_date() {
   return $?
 }
 
-# Progress bar
+# Progress bars
 progress_bar() {
   local percent=$1
   local width=20
@@ -60,7 +60,7 @@ progress_bar() {
   printf "[%s%s] %.3f%%" "$(printf '█%.0s' $(seq 1 $filled))" "$(printf '░%.0s' $(seq 1 $empty))" "$percent"
 }
 
-# Star reset logic
+# Stars reset logics
 check_and_reset_stars() {
   local current_date=$(date +%F)
   local current_week=$(date +%V)
@@ -71,7 +71,7 @@ check_and_reset_stars() {
     (if .monthly_reset_month != $month and (now | strftime("%d") == "01") then .monthly_stars = 0 | .monthly_reset_month = $month else . end)
   ' "$STARS_FILE" > tmp && mv tmp "$STARS_FILE"
 }
-# Task reset logic
+# Tasks reset logics
 check_and_reset_tasks() {
   local current_date=$(date +%F)
   local current_week=$(date +%V)
@@ -107,7 +107,7 @@ check_and_reset_tasks() {
     echo "$current_month" > "$TODO_TUI_APP_DIR/last_month_reset"
   fi
 }
-
+# streak window reset
 streak_window() {
   local current_streak=$(jq -r '.current_streak' "$STREAK_FILE")
   local stars=$(jq -r '.stars_this_week' "$STREAK_FILE")
@@ -119,7 +119,7 @@ streak_window() {
       "$(printf "🔥 Streak: %d\n\n%s\n%d/7" "$current_streak" "$star_display" "$stars")"
 }
 
-# streak update function
+# streak update functions
 update_streak() {
   local current_date=$(date +%F)
   local last_updated=$(jq -r '.last_updated_date' "$STREAK_FILE")
@@ -136,7 +136,7 @@ update_streak() {
       "$STREAK_FILE" > tmp && mv tmp "$STREAK_FILE"
   fi
 }
-# Update stars
+# Updates stars
 update_stars() {
   local period=$1
   local star_field
@@ -333,12 +333,10 @@ add_note_dialog() {
   [ -z "$type" ] && return
   local content=$(gum input --placeholder "Enter ${type} (URL if link)")
   [ -z "$content" ] && return
-  
   if [ "$type" = "link" ] && [[ ! "$content" =~ ^https?:// ]]; then
     gum style --foreground 196 "Invalid URL! Must start with http:// or https://"
     return
   fi
-
   gum confirm "Add ${type} note: ${content}" && {
     local next_id=$(jq 'map(.id) | max + 1' "$NOTES_FILE")
     [ "$next_id" = "null" ] && next_id=1
@@ -377,7 +375,7 @@ delete_note_dialog() {
     gum style --foreground "$COLOR_ACCENT" "Note deleted."
   }
 }
-# Target date functions
+# Target dates functions
 set_target_date_dialog() {
   local label=$(gum input --placeholder "Enter countdown label")
   [ -z "$label" ] && return
@@ -401,10 +399,8 @@ delete_target_date_dialog() {
   mapfile -t target_list < <(echo "$targets")
   local selected=$(gum choose --header "Select target to delete" "${target_list[@]}")
   [ -z "$selected" ] && return
-  
   local target_index=$(echo "$selected" | cut -d':' -f1)
   target_index=$((target_index - 1))
-  
   gum confirm "Delete target: $(echo "$selected" | cut -d':' -f2- | xargs)?" && {
     jq --argjson idx "$target_index" 'del(.[$idx])' "$TARGET_DATE_FILE" > tmp && mv tmp "$TARGET_DATE_FILE"
     gum style --foreground "$COLOR_ACCENT" "Target deleted."
