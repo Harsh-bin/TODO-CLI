@@ -2,6 +2,7 @@
 # todocli - CLI interface for todo.sh 
 
 TODO_CLI_APP_DIR="$HOME/.todo_config"
+TODO_FILE="$HOME/.todo/todo_tui.sh"
 DAY_TASK_FILE="$TODO_CLI_APP_DIR/day_tasks.json"
 WEEK_TASK_FILE="$TODO_CLI_APP_DIR/week_tasks.json"
 MONTH_TASK_FILE="$TODO_CLI_APP_DIR/month_tasks.json"
@@ -67,6 +68,8 @@ handle_error() {
   show_help >&2
   clean_exit 1
 }
+[ -f "$TODO_FILE" ] || handle_error "Missing todo.sh file"
+source "$TODO_FILE" >/dev/null 2>&1 || handle_error "Failed to source todo.sh"
 # JSON files 
 _check_json() {
   local file="$1"
@@ -279,12 +282,14 @@ show_tasks() {
   jq -r '.[] | select(.completed == false) | "  - \(.task)"' "$file" | nl -w2 -s '. '
   echo "➖ Total: $(jq 'length' "$file") | ✅ Completed: $(jq '[.[] | select(.completed)] | length' "$file")"
 }
-# Streaks functions
+
+show_streak() {
   echo "🔥 Streak:"
   echo "  Days: $(jq -r '.current_streak' "$STREAK_FILE")"
   echo "  ⭐ This Week: $(jq -r '.stars_this_week' "$STREAK_FILE")/7"
   echo "  ✅ Tasks: $(jq -r '.completed_tasks' "$STREAK_FILE")/$(jq -r '.total_tasks' "$STREAK_FILE")"
 }
+
 # Parse arugments functions
 parse_arguments() {
   case $1 in
