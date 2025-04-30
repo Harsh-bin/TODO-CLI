@@ -84,10 +84,7 @@ todocli [command] [options]
 ---
 
 ### 🛠️ **Setup**  
-  Install dependencies:  
-   ```bash  
-   brew install gum jq bc bsdmainutils  # macOS
-   ``` 
+  Install dependencies: 
    # For Linux:
 ### ubuntu/debian
    ```
