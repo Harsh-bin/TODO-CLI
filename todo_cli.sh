@@ -20,7 +20,7 @@ done
 [ -f "$STARS_EARNED_FILE" ] || echo "0" > "$STARS_EARNED_FILE"
 [ -f "$STREAK_FILE" ] || echo '{"current_streak": 0, "stars_this_week": 0, "last_updated_date": "", "total_tasks": 0, "completed_tasks": 0}' > "$STREAK_FILE"
 [ -f "$TASK_HISTORY_FILE" ] || touch "$TASK_HISTORY_FILE"
-source TODO_FILE
+
 show_help() {
   echo "Usage:"
   echo "  todocli [command] [options]"
@@ -125,6 +125,7 @@ edit_note() {
     gum style --foreground "$COLOR_ACCENT" "Note updated."
   }
 }
+
 set_target() {
   local label="$1"
   local date="$2"
@@ -178,6 +179,7 @@ delete_target() {
   jq "del(.[$index])" "$TARGET_DATE_FILE" > tmp && mv tmp "$TARGET_DATE_FILE"
   echo "🗑️ Target deleted"
 }
+
 _get_task_id() {
   local file="$1"
   local task_name="$2"
@@ -254,7 +256,6 @@ complete_task() {
   }
   echo "✅ Completed '$task_name' ⭐"
 }
-
 show_tasks() {
   local period="$1"
   case $period in
@@ -273,6 +274,7 @@ show_tasks() {
   jq -r '.[] | select(.completed == false) | "  - \(.task)"' "$file" | nl -w2 -s '. '
   echo "➖ Total: $(jq 'length' "$file") | ✅ Completed: $(jq '[.[] | select(.completed)] | length' "$file")"
 }
+
 show_streak() {
   echo "🔥 Streak:"
   echo "  Days: $(jq -r '.current_streak' "$STREAK_FILE")"
