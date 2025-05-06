@@ -3,12 +3,9 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-
+NC='\033[0m' 
 sleep 0.5
-
 echo -e "${YELLOW}🗑️ Starting Todo Manager Uninstaller${NC}"
-
 sleep 0.5
 if [ -d ~/.todo ]; then
     rm -rf ~/.todo
@@ -17,7 +14,6 @@ else
     echo -e "ℹ️ ~/.todo directory not found"
 fi
 sleep 0.5
-
 remove_alias() {
     local file=$1
     if [ -f "$file" ]; then
@@ -33,10 +29,8 @@ remove_alias() {
         fi
     fi
 }
-
 sleep 0.5
 echo -e "\n🔧 Cleaning up shell configurations..."
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
     remove_alias ~/.bash_profile
     remove_alias ~/.bashrc  
@@ -44,7 +38,6 @@ else
     remove_alias ~/.bashrc  
 fi
 remove_alias ~/.zshrc
-
 sleep 0.5
 if [ -d ~/.cache/todo ]; then
     rm -rf ~/.cache/todo

@@ -1,18 +1,14 @@
 #!/bin/bash
 
 sleep 0.5
-
-# Create .todo directory
 echo "📁 Creating your productivity hub..."
 sleep 0.5
 mkdir -p ~/.todo
 sleep 0.5
 echo "  ✅ Created: ~/.todo/"
-
 sleep 0.5
-
 if [ -f "todo_tui.sh" ]; then
-  mv todo_tui.sh ~/.todo/
+  cp todo_tui.sh ~/.todo/
   chmod +x ~/.todo/todo_tui.sh
   sleep 0.5
   echo "  🚀 Installed todo_tui.sh to ~/.todo/"
@@ -21,7 +17,7 @@ else
   exit 1
 fi
 if [ -f "todo_cli.sh" ]; then
-  mv todo_cli.sh ~/.todo/
+  cp todo_cli.sh ~/.todo/
   chmod +x ~/.todo/todo_cli.sh
   sleep 0.5
   echo "  🚀 Installed todo_cli.sh to ~/.todo/"
@@ -52,9 +48,7 @@ else
   add_alias ~/.bashrc        
 fi
 add_alias ~/.zshrc   
-
 sleep 0.5
-
 echo -e "\n🎉 All set! Now you can:"
 sleep 0.2
 echo " Restart your terminal and type todo for 'TUI' and todocli for 'CLI' "
